@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=netxms-agent
 PKG_LICENSE=GPL-2.0+
-PKG_VERSION:=2.1-RC1
+PKG_VERSION:=2.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://www.netxms.org/download/
