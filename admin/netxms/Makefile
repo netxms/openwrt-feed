@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=netxms-agent
 PKG_LICENSE=GPL-2.0+
-PKG_VERSION:=2.2.1
+PKG_VERSION:=2.2.1-41-gbfde910
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://www.netxms.org/download/
@@ -77,10 +77,13 @@ endif
 define Build/Configure
 	$(call Build/Configure/Default, \
 		--with-agent \
-		--with-client \
 		--disable-64bit \
 		--disable-iconv \
+		--disable-unicode \
 		--with-internal-libtre \
+		--without-curl \
+		--disable-ssh \
+		--disable-mqtt \
 		$(if $(CONFIG_NXAGENTD_NOSSL),--disable-encryption,) \
 	)
 endef
