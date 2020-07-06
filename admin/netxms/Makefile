@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
-PKG_VERSION:=Release-2.2.7-5-gf555328a20
+PKG_VERSION:=3.4.232
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/netxms/netxms
-PKG_SOURCE_VERSION:=f555328a2
+PKG_SOURCE_VERSION:=55c414782e
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_INSTALL:=1
@@ -44,7 +44,7 @@ $(call Package/netxms/Default)
 	CATEGORY:=Libraries
 	VARIANT:=$(1)
 	TITLE+= common libraries$(2)
-	DEPENDS:=+libexpat +libpthread +libstdcpp +zlib $(3)
+	DEPENDS:=+libexpat +libpthread +libstdcpp +zlib +libpcre +libpcre32 $(3)
 endef
 
 define Package/netxms-base/description
@@ -85,6 +85,7 @@ define Build/Configure
 		--disable-ssh \
 		--disable-mqtt \
 		--disable-null-free-check \
+		--with-pcre="$(STAGING_DIR)/usr/" \
 		$(if $(CONFIG_NXAGENTD_NOSSL),--disable-encryption,) \
 	)
 endef
