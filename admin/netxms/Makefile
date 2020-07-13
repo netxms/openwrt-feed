@@ -79,8 +79,6 @@ define Build/Configure
 		--with-agent \
 		--disable-64bit \
 		--disable-iconv \
-		--disable-unicode \
-		--with-internal-libtre \
 		--without-curl \
 		--disable-ssh \
 		--disable-mqtt \
@@ -96,7 +94,6 @@ define Package/netxms-base-$(BUILD_VARIANT)/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnetxms.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxjansson.so* $(1)/usr/lib/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxtre.so* $(1)/usr/lib/
 endef
 
 define Package/netxms-agent-$(BUILD_VARIANT)/install
