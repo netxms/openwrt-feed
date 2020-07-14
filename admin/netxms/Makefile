@@ -44,7 +44,7 @@ $(call Package/netxms/Default)
 	CATEGORY:=Libraries
 	VARIANT:=$(1)
 	TITLE+= common libraries$(2)
-	DEPENDS:=+libexpat +libpthread +libstdcpp +zlib +libpcre +libpcre32 $(3)
+	DEPENDS:=+libatomic +libexpat +libpthread +libstdcpp +zlib +libpcre +libpcre32 $(3)
 endef
 
 define Package/netxms-base/description
