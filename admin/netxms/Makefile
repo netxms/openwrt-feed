@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
-PKG_VERSION:=3.9.361
+PKG_VERSION:=4.1.348
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/netxms/netxms
-PKG_SOURCE_VERSION:=8731dd696b
+PKG_SOURCE_VERSION:=4a3f1e5337
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_INSTALL:=1
@@ -76,6 +76,7 @@ endif
 
 define Build/Configure
 	$(call Build/Configure/Default, \
+		--with-openwrt \
 		--with-agent \
 		--disable-64bit \
 		--disable-iconv \
