@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 Alex Kirhenshtein <alk@netxms.org>
+# Copyright (C) 2015-2022 Alex Kirhenshtein <alk@netxms.org>
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,18 +9,16 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
-PKG_VERSION:=4.1.348
+PKG_VERSION:=4.1.377
 PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/netxms/netxms
-PKG_SOURCE_VERSION:=4a3f1e5337
+PKG_SOURCE:=netxms-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://www.netxms.org/download/releases/4.1/
+PKG_HASH:=4e5759ceb40fefe35e905a70ae2a1e2026ca79862e26d5211f624cb201c96030
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
-
-PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
 
