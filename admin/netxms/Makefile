@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
-PKG_VERSION:=4.1.401
+PKG_VERSION:=4.2.192
 PKG_RELEASE:=1
 
 PKG_SOURCE:=netxms-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://www.netxms.org/download/releases/4.1/
-PKG_HASH:=bce635b45df13e3a0354b3cfab4f3454e8023173bea59db4dda9eb0cd80f3438
+PKG_SOURCE_URL:=https://www.netxms.org/download/releases/4.2/
+PKG_HASH:=12c036858466ecccdaf7e4e9d9bdb0c2f2d5e9b429bf493a54fbe2362494f4ad
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_INSTALL:=1
@@ -110,6 +110,10 @@ define Package/netxms-agent-$(BUILD_VARIANT)/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/netxms/*.nsm $(1)/usr/lib/netxms/
 	$(INSTALL_DIR) $(1)/usr/lib/netxms/dbdrv
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/netxms/dbdrv/sqlite.ddr $(1)/usr/lib/netxms/dbdrv/
+	$(INSTALL_DIR) $(1)/etc
+	$(INSTALL_DATA) ./files/nxagentd.conf $(1)/etc/
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/nxagentd.init $(1)/etc/init.d/nxagentd
 endef
 
 $(eval $(call BuildPackage,netxms-base-ssl))
