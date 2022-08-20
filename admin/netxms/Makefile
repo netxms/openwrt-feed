@@ -7,13 +7,16 @@
 
 include $(TOPDIR)/rules.mk
 
+NETXMS_RELEASE:=4.2
+NETXMS_BUILD:=198
+
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
-PKG_VERSION:=4.2.192
+PKG_VERSION:=$(NETXMS_RELEASE).$(NETXMS_BUILD)
 PKG_RELEASE:=1
 
 PKG_SOURCE:=netxms-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://www.netxms.org/download/releases/4.2/
+PKG_SOURCE_URL:=https://www.netxms.org/download/releases/$(NETXMS_RELEASE)/
 PKG_HASH:=12c036858466ecccdaf7e4e9d9bdb0c2f2d5e9b429bf493a54fbe2362494f4ad
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
