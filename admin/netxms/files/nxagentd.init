@@ -1,13 +1,13 @@
 #!/bin/sh /etc/rc.common
 
-START=50
-STOP=50
+START=99
+STOP=01
 
 SERVICE_PID_FILE="/var/run/nxagentd.pid"
 
 start() {        
     /usr/bin/nxagentd -d
-}                 
+}
 
 stop() {          
     if [ -s ${SERVICE_PID_FILE} ]; then

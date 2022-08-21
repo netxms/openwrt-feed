@@ -103,6 +103,7 @@ define Package/netxms-agent-$(BUILD_VARIANT)/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxagentd $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxappget $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxapush $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxaevent $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxagent.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libappagent.so* $(1)/usr/lib/
@@ -114,9 +115,13 @@ define Package/netxms-agent-$(BUILD_VARIANT)/install
 	$(INSTALL_DIR) $(1)/usr/lib/netxms/dbdrv
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/netxms/dbdrv/sqlite.ddr $(1)/usr/lib/netxms/dbdrv/
 	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_DATA) ./files/nxagentd.conf $(1)/etc/
+	$(INSTALL_CONF) ./files/nxagentd.conf $(1)/etc/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/nxagentd.init $(1)/etc/init.d/nxagentd
+endef
+
+define Package/netxms-agent-$(BUILD_VARIANT)/conffiles
+	/etc/nxagentd.conf
 endef
 
 $(eval $(call BuildPackage,netxms-base-ssl))
