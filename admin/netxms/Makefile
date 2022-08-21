@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 NETXMS_RELEASE:=4.2
-NETXMS_BUILD:=198
+NETXMS_BUILD:=203
 
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
@@ -17,7 +17,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=netxms-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.netxms.org/download/releases/$(NETXMS_RELEASE)/
-PKG_HASH:=6491f7e777a857e1ab9a156b18f921a49417ef09319ef4714c10705bb780ae4e
+PKG_HASH:=be50b9af77cd5baeb8045ce743b3d55eeb77267571cecb9e4a58a9144494f91d
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_INSTALL:=1
@@ -121,7 +121,7 @@ define Package/netxms-agent-$(BUILD_VARIANT)/install
 endef
 
 define Package/netxms-agent-$(BUILD_VARIANT)/conffiles
-	/etc/nxagentd.conf
+/etc/nxagentd.conf
 endef
 
 $(eval $(call BuildPackage,netxms-base-ssl))
