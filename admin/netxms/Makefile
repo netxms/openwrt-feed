@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 NETXMS_RELEASE:=4.2
-NETXMS_BUILD:=203
+NETXMS_BUILD:=278
 
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
@@ -104,6 +104,7 @@ define Package/netxms-agent-$(BUILD_VARIANT)/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxappget $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxapush $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxaevent $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxtftp $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxagent.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libappagent.so* $(1)/usr/lib/
