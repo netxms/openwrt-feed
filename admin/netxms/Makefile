@@ -116,8 +116,15 @@ define Package/netxms-agent-$(BUILD_VARIANT)/install
 	$(INSTALL_DIR) $(1)/usr/lib/netxms/dbdrv
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/netxms/dbdrv/sqlite.ddr $(1)/usr/lib/netxms/dbdrv/
 	$(INSTALL_DIR) $(1)/etc
+	$(INSTALL_CONF) ./files/nxagentd.conf $(1)/etc/
+	$(INSTALL_DIR) $(1)/lib/upgrade/keep.d
+	$(INSTALL_CONF) ./files/nxagentd.keep $(1)/lib/upgrade/keep.d/nxagentd
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/nxagentd.init $(1)/etc/init.d/nxagentd
+endef
+
+define Package/netxms-agent-$(BUILD_VARIANT)/conffiles
+/etc/nxagentd.conf
 endef
 
 $(eval $(call BuildPackage,netxms-base-ssl))

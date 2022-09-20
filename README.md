@@ -15,6 +15,8 @@ How to use it:
    1. `make toolchain/install -j$(nproc)`
    1. `make package/netxms/compile -j$(nproc)`
 
-Alternatively you can build whole image with `make -j$(nproc)`.
+Packages will be in `bin/packages/platform-name/netxms/`
 
-Packages will be in `bin/platform-name/packages/netxms/`
+Alternatively you can build whole image with `make -j$(nproc)`. 
+Image will be in `bin/targets/platform-name/subtarget-name`
+
