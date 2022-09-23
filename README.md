@@ -9,9 +9,9 @@ How to use it:
 1. `make menuconfig`, then:
    1. Configure image (platform, desired libc, etc.)
    1. Select agent package in `Administration` -> `NetXMS`. Packages have three markings:
-      - <*> - package will be compiled and added to the firmware image
-      - <M> - package will be compiled but will not be added to the firmware image
-      - < > - package will not be compiled and will not be added to the firmware image
+      - `<*>` - package will be compiled and added to the firmware image
+      - `<M>` - package will be compiled but will not be added to the firmware image
+      - `< >` - package will not be compiled and will not be added to the firmware image
 1. Build toolchain, then package itself:
    1. `make tools/install -j$(nproc)`
    1. `make toolchain/install -j$(nproc)`
