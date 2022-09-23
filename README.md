@@ -6,10 +6,12 @@ How to use it:
 1. Copy default feeds.conf: `cp feeds.conf.default feeds.conf`
 1. Add `src-git netxms https://github.com/netxms/openwrt-feed.git` to `feeds.conf`
 1. Update and install default feeds: `./scripts/feeds update -a && ./scripts/feeds install -a`
-1. Run `make menuconfig` and configure image (platform, desired libc, etc.)
 1. `make menuconfig`, then:
    1. Configure image (platform, desired libc, etc.)
-   1. Select ssl/non-ssl agent package in `Administration` -> `NetXMS`.
+   1. Select agent package in `Administration` -> `NetXMS`. Packages have three markings:
+      - <*> - package will be compiled and added to the firmware image
+      - <M> - package will be compiled but will not be added to the firmware image
+      - < > - package will not be compiled and will not be added to the firmware image
 1. Build toolchain, then package itself:
    1. `make tools/install -j$(nproc)`
    1. `make toolchain/install -j$(nproc)`
