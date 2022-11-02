@@ -43,9 +43,8 @@ $(call Package/netxms/Default)
 	SUBMENU:=
 	SECTION:=libs
 	CATEGORY:=Libraries
-	VARIANT:=$(1)
-	TITLE+= common libraries$(2)
-	DEPENDS:=+libatomic +libexpat +libpthread +libstdcpp +zlib +libpcre +libpcre32 $(3)
+	TITLE+= common libraries
+	DEPENDS:=+libatomic +libexpat +libpthread +libstdcpp +zlib +libpcre +libpcre32 +libopenssl
 endef
 
 define Package/netxms-base/description
@@ -53,27 +52,16 @@ $(call Package/netxms/Default/description)
 	Common NetXMS libraries and tools
 endef
 
-Package/netxms-base-ssl=$(call Package/netxms-base,ssl,,+libopenssl)
-Package/netxms-base-nossl=$(call Package/netxms-base,nossl, (no SSL))
-
 define Package/netxms-agent
 $(call Package/netxms/Default)
-	VARIANT:=$(1)
-	TITLE+= agent$(2)
-	DEPENDS:=+netxms-base-$(1) +libsqlite3
+	TITLE+= agent
+	DEPENDS:=+netxms-base +libsqlite3
 endef
 
 define Package/netxms-agent/description
 $(call Package/netxms/Default/description)
 	NetXMS agent
 endef
-
-Package/netxms-agent-ssl=$(call Package/netxms-agent,ssl)
-Package/netxms-agent-nossl=$(call Package/netxms-agent,nossl, (no SSL))
-
-ifeq ($(BUILD_VARIANT),nossl)
-	CONFIG_NXAGENTD_NOSSL:=y
-endif
 
 define Build/Configure
 	$(call Build/Configure/Default, \
@@ -86,11 +74,10 @@ define Build/Configure
 		--disable-mqtt \
 		--disable-null-free-check \
 		--with-pcre="$(STAGING_DIR)/usr/" \
-		$(if $(CONFIG_NXAGENTD_NOSSL),--disable-encryption,) \
 	)
 endef
 
-define Package/netxms-base-$(BUILD_VARIANT)/install
+define Package/netxms-base/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxencpasswd $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib
@@ -98,7 +85,7 @@ define Package/netxms-base-$(BUILD_VARIANT)/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxjansson.so* $(1)/usr/lib/
 endef
 
-define Package/netxms-agent-$(BUILD_VARIANT)/install
+define Package/netxms-agent/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxagentd $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxappget $(1)/usr/bin/
@@ -123,11 +110,9 @@ define Package/netxms-agent-$(BUILD_VARIANT)/install
 	$(INSTALL_BIN) ./files/nxagentd.init $(1)/etc/init.d/nxagentd
 endef
 
-define Package/netxms-agent-$(BUILD_VARIANT)/conffiles
+define Package/netxms-agent/conffiles
 /etc/nxagentd.conf
 endef
 
-$(eval $(call BuildPackage,netxms-base-ssl))
-$(eval $(call BuildPackage,netxms-base-nossl))
-$(eval $(call BuildPackage,netxms-agent-ssl))
-$(eval $(call BuildPackage,netxms-agent-nossl))
+$(eval $(call BuildPackage,netxms-base))
+$(eval $(call BuildPackage,netxms-agent))
