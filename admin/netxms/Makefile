@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 NETXMS_RELEASE:=4.2
-NETXMS_BUILD:=432
+NETXMS_BUILD:=449
 
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
@@ -17,7 +17,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=netxms-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.netxms.org/download/releases/$(NETXMS_RELEASE)/
-PKG_HASH:=c5121cc43eb4a2483dee593a2c1e4411c0263de3d4eab574042777f7f9e452d7
+PKG_HASH:=065d9c59af31cee7a56a1cd8695bfd894668753b149c0d26337cf1f8f8c9307e
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_INSTALL:=1
@@ -55,7 +55,7 @@ endef
 define Package/netxms-agent
 $(call Package/netxms/Default)
 	TITLE+= agent
-	DEPENDS:=+netxms-base +libsqlite3
+	DEPENDS:=+netxms-base +libsqlite3 +libmosquitto +libssh
 endef
 
 define Package/netxms-agent/description
@@ -67,11 +67,8 @@ define Build/Configure
 	$(call Build/Configure/Default, \
 		--with-openwrt \
 		--with-agent \
-		--disable-64bit \
 		--disable-iconv \
 		--without-curl \
-		--disable-ssh \
-		--disable-mqtt \
 		--disable-null-free-check \
 		--with-pcre="$(STAGING_DIR)/usr/" \
 	)
