@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015-2022 Alex Kirhenshtein <alk@netxms.org>
+# Copyright (C) 2015-2026 Alex Kirhenshtein <alk@netxms.org>
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,8 +7,8 @@
 
 include $(TOPDIR)/rules.mk
 
-NETXMS_RELEASE:=5.1
-NETXMS_BUILD:=1.8
+NETXMS_RELEASE:=6.1
+NETXMS_BUILD:=0
 
 PKG_NAME:=netxms
 PKG_LICENSE=GPL-2.0+
@@ -17,7 +17,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=netxms-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.netxms.org/download/releases/$(NETXMS_RELEASE)/
-PKG_HASH:=9e428f25dad4519fec7b96b16915494867e3eae6f320fb3f69e892404993f068
+PKG_HASH:=2fcfa684e021fa26d43b05e9e6065b66a3a5393acf5264d319256f54827608a9
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_INSTALL:=1
@@ -44,7 +44,7 @@ $(call Package/netxms/Default)
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE+= common libraries
-	DEPENDS:=+libatomic +libexpat +libpthread +libstdcpp +zlib +libpcre +libpcre32 +libopenssl
+	DEPENDS:=+libatomic +libexpat +libpthread +libstdcpp +zlib +libpcre2 +libpcre2-32 +libopenssl +libcurl
 endef
 
 define Package/netxms-base/description
@@ -55,7 +55,7 @@ endef
 define Package/netxms-agent
 $(call Package/netxms/Default)
 	TITLE+= agent
-	DEPENDS:=+netxms-base +libsqlite3 +libmosquitto +libssh
+	DEPENDS:=+netxms-base +libsqlite3 +libmosquitto +libssh +libcurl
 endef
 
 define Package/netxms-agent/description
@@ -68,9 +68,8 @@ define Build/Configure
 		--with-openwrt \
 		--with-agent \
 		--disable-iconv \
-		--without-curl \
+		--with-curl \
 		--disable-null-free-check \
-		--with-pcre="$(STAGING_DIR)/usr/" \
 	)
 endef
 
@@ -90,11 +89,13 @@ define Package/netxms-agent/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxaevent $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nxtftp $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libethernetip.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxagent.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libappagent.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxdb.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxlp.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxsnmp.so* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnxsde.so* $(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/usr/lib/netxms
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/netxms/*.nsm $(1)/usr/lib/netxms/
 	$(INSTALL_DIR) $(1)/usr/lib/netxms/dbdrv
